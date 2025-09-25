@@ -1,0 +1,32 @@
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+runs
+run-data
+
+repo
+
+# custom
+run/*
+!run/kubejs/
+run/kubejs/README.txt
+run/kubejs/config
+jsconfig.json
