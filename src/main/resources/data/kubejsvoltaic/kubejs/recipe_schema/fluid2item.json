@@ -1,0 +1,49 @@
+{
+  "keys": [
+    {
+      "name": "output",
+      "role": "output",
+      "type": "item_stack"
+    },
+    {
+      "name": "fluidinputs",
+      "role": "input",
+      "type": "flat_sized_fluid_ingredient[?]"
+    },
+    {
+      "name": "experience",
+      "role": "other",
+      "type": "float<0.0,max>",
+      "function_names": ["experience"],
+      "optional": 0.0,
+      "excluded": true
+    },
+    {
+      "name": "usagepertick",
+      "role": "other",
+      "type": "float<0.0,max>",
+      "function_names": ["usagePerTick"],
+      "optional": 0.0,
+      "always_write": true,
+      "excluded": true
+    },
+    {
+      "name": "ticks",
+      "role": "other",
+      "type": "ticks",
+      "function_names": ["ticks"],
+      "optional": 20,
+      "always_write": true,
+      "excluded": true
+    },
+    {
+      "name": "group",
+      "role": "other",
+      "type": "string",
+      "function_names": ["group"],
+      "optional": "kubejs",
+      "always_write": true,
+      "excluded": true
+    }
+  ]
+}
