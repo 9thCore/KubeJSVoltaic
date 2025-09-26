@@ -21,7 +21,7 @@
     },
     {
       "name": "experience",
-      "role": "output",
+      "role": "other",
       "type": "float<0.0,max>",
       "function_names": ["experience"],
       "optional": 0.0,
@@ -29,7 +29,7 @@
     },
     {
       "name": "usagepertick",
-      "role": "input",
+      "role": "other",
       "type": "float<0.0,max>",
       "function_names": ["usagePerTick"],
       "optional": 0.0,
@@ -38,7 +38,7 @@
     },
     {
       "name": "ticks",
-      "role": "input",
+      "role": "other",
       "type": "ticks",
       "function_names": ["ticks"],
       "optional": 20,
