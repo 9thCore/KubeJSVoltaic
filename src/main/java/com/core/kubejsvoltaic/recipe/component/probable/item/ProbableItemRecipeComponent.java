@@ -45,6 +45,20 @@ public record ProbableItemRecipeComponent(ResourceLocation Id) implements Recipe
     }
 
     @Override
+    public ProbableItem replace(Context cx, KubeRecipe recipe, ProbableItem original, ReplacementMatchInfo match, Object with) {
+        if (!matches(cx, recipe, original, match)) {
+            return original;
+        }
+
+        ProbableItem replacement = ProbableItemWrapper.from(with);
+        if (replacement == null) {
+            return original;
+        }
+
+        return replacement;
+    }
+
+    @Override
     public boolean isEmpty(ProbableItem value) {
         return value.getFullStack().isEmpty();
     }
