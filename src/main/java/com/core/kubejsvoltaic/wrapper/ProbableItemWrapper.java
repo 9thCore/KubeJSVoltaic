@@ -1,6 +1,7 @@
 package com.core.kubejsvoltaic.wrapper;
 
 import com.core.kubejsvoltaic.util.item.ItemUtil;
+import dev.latvian.mods.kubejs.typings.Info;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.minecraft.world.item.ItemStack;
 import voltaic.common.recipe.recipeutils.ProbableItem;
@@ -18,10 +19,12 @@ public interface ProbableItemWrapper {
     @HideFromJS
     static Pattern COUNT_CHANCE_ITEM = ItemUtil.prefixItem(ItemUtil.COUNT_MATCH_COMPONENT, CHANCE_MATCH_COMPONENT);
 
+    @Info("Returns Voltaic's ProbableItem of the input, with a chance of 100%")
     static ProbableItem of(ItemStack stack) {
         return of(stack, 1d);
     }
 
+    @Info("Returns Voltaic's ProbableItem of the input, with the given chance in the range [0, 1]")
     static ProbableItem of(ItemStack stack, double chance) {
         return new ProbableItem(stack, chance);
     }
