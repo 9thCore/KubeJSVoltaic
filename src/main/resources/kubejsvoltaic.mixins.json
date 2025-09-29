@@ -2,7 +2,9 @@
   "required": true,
   "package": "com.core.kubejsvoltaic.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "GasStackMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },

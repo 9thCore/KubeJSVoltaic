@@ -4,6 +4,7 @@ import com.core.kubejsvoltaic.recipe.component.GasStackRecipeComponent;
 import com.core.kubejsvoltaic.recipe.component.probable.gas.ProbableGasRecipeComponent;
 import com.core.kubejsvoltaic.recipe.component.probable.item.ProbableItemRecipeComponent;
 import com.core.kubejsvoltaic.util.gas.GasUtil;
+import com.core.kubejsvoltaic.wrapper.GasStackWrapper;
 import com.core.kubejsvoltaic.wrapper.ProbableGasWrapper;
 import com.core.kubejsvoltaic.wrapper.ProbableItemWrapper;
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
@@ -32,6 +33,7 @@ public class KubeJSVoltaicPlugin implements KubeJSPlugin {
 
     @Override
     public void registerBindings(BindingRegistry bindings) {
+        bindings.add("VoltaicGasStack", GasStackWrapper.class);
         bindings.add("VoltaicProbableItem", ProbableItemWrapper.class);
         bindings.add("VoltaicProbableGas", ProbableGasWrapper.class);
     }
