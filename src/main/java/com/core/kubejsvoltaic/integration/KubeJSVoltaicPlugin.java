@@ -1,8 +1,8 @@
 package com.core.kubejsvoltaic.integration;
 
-import com.core.kubejsvoltaic.recipe.component.GasStackRecipeComponent;
-import com.core.kubejsvoltaic.recipe.component.probable.gas.ProbableGasRecipeComponent;
-import com.core.kubejsvoltaic.recipe.component.probable.item.ProbableItemRecipeComponent;
+import com.core.kubejsvoltaic.recipe.component.gas.GasStackRecipeComponent;
+import com.core.kubejsvoltaic.recipe.component.gas.ProbableGasRecipeComponent;
+import com.core.kubejsvoltaic.recipe.component.item.ProbableItemRecipeComponent;
 import com.core.kubejsvoltaic.util.gas.GasUtil;
 import com.core.kubejsvoltaic.wrapper.GasStackWrapper;
 import com.core.kubejsvoltaic.wrapper.ProbableGasWrapper;

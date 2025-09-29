@@ -1,4 +1,4 @@
-package com.core.kubejsvoltaic.recipe.component;
+package com.core.kubejsvoltaic.recipe.component.gas;
 
 import com.core.kubejsvoltaic.KubeJSVoltaic;
 import com.core.kubejsvoltaic.recipe.match.GasMatch;
@@ -11,7 +11,6 @@ import dev.latvian.mods.rhino.Context;
 import dev.latvian.mods.rhino.type.TypeInfo;
 import net.minecraft.resources.ResourceLocation;
 import voltaic.api.gas.GasStack;
-import voltaic.common.recipe.recipeutils.ProbableGas;
 
 public record GasStackRecipeComponent(ResourceLocation Id) implements RecipeComponent<GasStack> {
     public static final TypeInfo TYPE_INFO = TypeInfo.of(GasStack.class);

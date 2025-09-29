@@ -1,9 +1,8 @@
-package com.core.kubejsvoltaic.recipe.component.probable.item;
+package com.core.kubejsvoltaic.recipe.component.item;
 
 import com.core.kubejsvoltaic.KubeJSVoltaic;
 import com.core.kubejsvoltaic.wrapper.ProbableItemWrapper;
 import com.mojang.serialization.Codec;
-import dev.latvian.mods.kubejs.bindings.ItemWrapper;
 import dev.latvian.mods.kubejs.recipe.KubeRecipe;
 import dev.latvian.mods.kubejs.recipe.component.RecipeComponent;
 import dev.latvian.mods.kubejs.recipe.match.ItemMatch;
@@ -11,7 +10,6 @@ import dev.latvian.mods.kubejs.recipe.match.ReplacementMatchInfo;
 import dev.latvian.mods.rhino.Context;
 import dev.latvian.mods.rhino.type.TypeInfo;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import voltaic.common.recipe.recipeutils.ProbableItem;
 
 public record ProbableItemRecipeComponent(ResourceLocation Id) implements RecipeComponent<ProbableItem> {

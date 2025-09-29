@@ -1,19 +1,16 @@
-package com.core.kubejsvoltaic.recipe.component.probable.gas;
+package com.core.kubejsvoltaic.recipe.component.gas;
 
 import com.core.kubejsvoltaic.KubeJSVoltaic;
 import com.core.kubejsvoltaic.recipe.match.GasMatch;
 import com.core.kubejsvoltaic.wrapper.ProbableGasWrapper;
-import com.core.kubejsvoltaic.wrapper.ProbableItemWrapper;
 import com.mojang.serialization.Codec;
 import dev.latvian.mods.kubejs.recipe.KubeRecipe;
 import dev.latvian.mods.kubejs.recipe.component.RecipeComponent;
-import dev.latvian.mods.kubejs.recipe.match.ItemMatch;
 import dev.latvian.mods.kubejs.recipe.match.ReplacementMatchInfo;
 import dev.latvian.mods.rhino.Context;
 import dev.latvian.mods.rhino.type.TypeInfo;
 import net.minecraft.resources.ResourceLocation;
 import voltaic.common.recipe.recipeutils.ProbableGas;
-import voltaic.common.recipe.recipeutils.ProbableItem;
 
 public record ProbableGasRecipeComponent(ResourceLocation Id) implements RecipeComponent<ProbableGas> {
     public static final TypeInfo TYPE_INFO = TypeInfo.of(ProbableGas.class);
