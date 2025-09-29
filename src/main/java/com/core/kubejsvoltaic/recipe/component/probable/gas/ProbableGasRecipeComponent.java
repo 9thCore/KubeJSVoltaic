@@ -41,6 +41,11 @@ public record ProbableGasRecipeComponent(ResourceLocation Id) implements RecipeC
     }
 
     @Override
+    public boolean matches(Context cx, KubeRecipe recipe, ProbableGas value, ReplacementMatchInfo match) {
+        return !isEmpty(value) && match.match() instanceof GasMatch m && m.matches(cx, value.getFullStack(), match.exact());
+    }
+
+    @Override
     public ProbableGas replace(Context cx, KubeRecipe recipe, ProbableGas original, ReplacementMatchInfo match, Object with) {
         if (!matches(cx, recipe, original, match)) {
             return original;

@@ -1,6 +1,7 @@
 package com.core.kubejsvoltaic.recipe.component;
 
 import com.core.kubejsvoltaic.KubeJSVoltaic;
+import com.core.kubejsvoltaic.recipe.match.GasMatch;
 import com.core.kubejsvoltaic.util.gas.GasUtil;
 import com.mojang.serialization.Codec;
 import dev.latvian.mods.kubejs.recipe.KubeRecipe;
@@ -10,6 +11,7 @@ import dev.latvian.mods.rhino.Context;
 import dev.latvian.mods.rhino.type.TypeInfo;
 import net.minecraft.resources.ResourceLocation;
 import voltaic.api.gas.GasStack;
+import voltaic.common.recipe.recipeutils.ProbableGas;
 
 public record GasStackRecipeComponent(ResourceLocation Id) implements RecipeComponent<GasStack> {
     public static final TypeInfo TYPE_INFO = TypeInfo.of(GasStack.class);
@@ -34,6 +36,11 @@ public record GasStackRecipeComponent(ResourceLocation Id) implements RecipeComp
         }
 
         return RecipeComponent.super.wrap(cx, recipe, from);
+    }
+
+    @Override
+    public boolean matches(Context cx, KubeRecipe recipe, GasStack value, ReplacementMatchInfo match) {
+        return !isEmpty(value) && match.match() instanceof GasMatch m && m.matches(cx, value, match.exact());
     }
 
     @Override
