@@ -4,7 +4,10 @@ ServerEvents.recipes(event => {
             "250x electrodynamics:hydrogen",
             "250x lava"
         )
-        .gasByproducts("electrodynamics:hydrogen") // uses an implicit 1000mB of hydrogen at room temperature and pressure, if not given (can't have an empty byproduct for this recipe)
+        // defaults to 1000mB of hydrogen gas at room temperature and sea level pressure (limitation, recipe requires two gasses)
+        // use .gasByproducts("") to use an empty gas!
+        .gasByproducts("")
+        //.gasByproducts("15% electrodynamics:hydrogen") // chances don't seem to work fully for this one
         .ticks(60)
         .usagePerTick(250);
     }
