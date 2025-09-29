@@ -34,6 +34,10 @@ public final class GasUtil {
         } else if (from instanceof Gas gas) {
             return new GasStack(gas, FluidType.BUCKET_VOLUME, Gas.ROOM_TEMPERATURE, Gas.PRESSURE_AT_SEA_LEVEL);
         } else if (from instanceof JsonObject json) {
+            if (isEmpty(json)) {
+                return GasStack.EMPTY;
+            }
+
             String gas = json.get(JSON_GAS_KEY).getAsString();
             int amount = json.has(JSON_AMOUNT_KEY) ? json.get(JSON_AMOUNT_KEY).getAsInt() : FluidType.BUCKET_VOLUME;
             int pressure = json.has(JSON_PRESSURE_KEY) ? json.get(JSON_PRESSURE_KEY).getAsInt() : Gas.PRESSURE_AT_SEA_LEVEL;
@@ -43,7 +47,7 @@ public final class GasUtil {
             return gasStackFrom(sequence);
         }
 
-        return null;
+        return GasStack.EMPTY;
     }
 
     public static GasStack gasStackFrom(CharSequence sequence) {
@@ -78,9 +82,13 @@ public final class GasUtil {
 
     private static GasStack fromGas(Gas gas, int amount, int temperature, int pressure) {
         if (gas == null) {
-            return null;
+            return GasStack.EMPTY;
         }
 
         return new GasStack(gas, amount, temperature, pressure);
+    }
+
+    public static boolean isEmpty(JsonObject json) {
+        return !json.has(JSON_GAS_KEY);
     }
 }

@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 
 public interface ProbableItemWrapper {
     @HideFromJS
+    static ProbableItem EMPTY = new ProbableItem(ItemStack.EMPTY, 0.0d);
+    @HideFromJS
     static String CHANCE_MATCH_COMPONENT = "(\\d*\\.?\\d*)%";
     @HideFromJS
     static Pattern CHANCE_ITEM = ItemUtil.prefixItem(CHANCE_MATCH_COMPONENT);
@@ -32,7 +34,7 @@ public interface ProbableItemWrapper {
     @HideFromJS
     static ProbableItem from(Object from) {
         if (from == null) {
-            return ProbableItem.NONE.get(0);
+            return EMPTY;
         }
 
         if (from instanceof ProbableItem probableItem) {
@@ -46,7 +48,7 @@ public interface ProbableItemWrapper {
 
         ItemStack stack = ItemUtil.itemStackFrom(from);
         if (stack == null) {
-            return ProbableItem.NONE.get(0);
+            return EMPTY;
         }
 
         return new ProbableItem(stack, 1d);

@@ -2,9 +2,11 @@ package com.core.kubejsvoltaic.wrapper;
 
 import com.core.kubejsvoltaic.util.gas.GasUtil;
 import com.google.gson.JsonObject;
+import dev.latvian.mods.kubejs.script.ConsoleJS;
 import dev.latvian.mods.kubejs.typings.Info;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.neoforged.neoforge.fluids.FluidType;
+import org.jline.utils.Log;
 import voltaic.api.gas.GasStack;
 import voltaic.common.recipe.recipeutils.ProbableGas;
 
@@ -12,6 +14,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public interface ProbableGasWrapper {
+    @HideFromJS
+    static ProbableGas EMPTY = new ProbableGas(GasStack.EMPTY, 0.0d);
     @HideFromJS
     static String JSON_CHANCE_KEY = "chance";
     @HideFromJS
@@ -36,12 +40,16 @@ public interface ProbableGasWrapper {
     @HideFromJS
     static ProbableGas from(Object from) {
         if (from == null) {
-            return null;
+            return EMPTY;
         }
 
         if (from instanceof ProbableGas probableGas) {
             return probableGas;
         } else if (from instanceof JsonObject json) {
+            if (GasUtil.isEmpty(json)) {
+                return EMPTY;
+            }
+
             GasStack stack = GasUtil.gasStackFrom(from);
             double chance = json.has(JSON_CHANCE_KEY) ? json.get(JSON_CHANCE_KEY).getAsDouble() : 1.0d;
             return new ProbableGas(stack, chance);
@@ -54,7 +62,7 @@ public interface ProbableGasWrapper {
 
         GasStack stack = GasUtil.gasStackFrom(from);
         if (stack == null) {
-            return null;
+            return EMPTY;
         }
 
         return new ProbableGas(stack, 1.0d);
