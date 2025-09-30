@@ -1,7 +1,9 @@
 package com.core.kubejsvoltaic.wrapper;
 
+import com.core.kubejsvoltaic.util.JSObjectUtil;
 import com.core.kubejsvoltaic.util.fluid.FluidUtil;
 import dev.latvian.mods.kubejs.typings.Info;
+import dev.latvian.mods.rhino.NativeObject;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -14,6 +16,8 @@ public interface ProbableFluidWrapper {
     @HideFromJS
     static ProbableFluid EMPTY = new ProbableFluid(FluidStack.EMPTY, 0.0d);
     @HideFromJS
+    static String JSON_CHANCE_KEY = "chance";
+    @HideFromJS
     static String CHANCE_MATCH_COMPONENT = "(\\d*\\.?\\d*)%";
     @HideFromJS
     static Pattern CHANCE_FLUID = FluidUtil.prefixFluid(CHANCE_MATCH_COMPONENT);
@@ -23,13 +27,13 @@ public interface ProbableFluidWrapper {
     static Pattern COUNT_CHANCE_FLUID = FluidUtil.prefixFluid(FluidUtil.COUNT_MATCH_COMPONENT, CHANCE_MATCH_COMPONENT);
 
     @Info("Returns Voltaic's ProbableFluid of the input, with a chance of 100%")
-    static ProbableFluid of(FluidStack stack) {
-        return of(stack, 1d);
+    static ProbableFluid of(ProbableFluid probableFluid) {
+        return of(probableFluid, probableFluid.getChance());
     }
 
     @Info("Returns Voltaic's ProbableFluid of the input, with the given chance in the range [0, 1]")
-    static ProbableFluid of(FluidStack stack, double chance) {
-        return new ProbableFluid(stack, chance);
+    static ProbableFluid of(ProbableFluid probableFluid, double chance) {
+        return new ProbableFluid(probableFluid.getFullStack(), chance);
     }
 
     @HideFromJS
@@ -45,6 +49,13 @@ public interface ProbableFluidWrapper {
             if (probableFluid != null) {
                 return probableFluid;
             }
+        } else if (from instanceof NativeObject object) {
+            FluidStack stack = FluidUtil.fluidStackFrom(object);
+            if (stack != null) {
+                double chance = JSObjectUtil.getDoubleValue(object, JSON_CHANCE_KEY, 1.0d);
+                return new ProbableFluid(stack, chance);
+            }
+            return EMPTY;
         }
 
         FluidStack stack = FluidUtil.fluidStackFrom(from);
