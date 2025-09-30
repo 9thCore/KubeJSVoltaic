@@ -1,6 +1,8 @@
 package com.core.kubejsvoltaic.util.item;
 
+import com.core.kubejsvoltaic.util.JSObjectUtil;
 import com.core.kubejsvoltaic.util.RegexUtil;
+import dev.latvian.mods.rhino.NativeObject;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -11,6 +13,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class ItemUtil {
+    public static String JSON_ITEM_KEY = "item";
+    public static String JSON_ID_KEY = "id";
+    public static String JSON_COUNT_KEY = "count";
     public static String ITEM_MATCH_COMPONENT = "([a-z0-9/._:-]+)";
     public static String COUNT_MATCH_COMPONENT = "(\\d+)x";
     public static Pattern COUNT_ITEM = prefixItem(COUNT_MATCH_COMPONENT);
@@ -22,6 +27,8 @@ public final class ItemUtil {
     public static ItemStack itemStackFrom(Object from) {
         if (from instanceof ItemStack stack) {
             return stack;
+        } else if (from instanceof NativeObject object) {
+            return itemStackFrom(object);
         } else if (from instanceof ItemLike item) {
             return item.asItem().getDefaultInstance();
         } else if (from instanceof CharSequence sequence) {
@@ -29,6 +36,23 @@ public final class ItemUtil {
         }
 
         return null;
+    }
+
+    public static ItemStack itemStackFrom(NativeObject object) {
+        if (object.containsKey(JSON_ITEM_KEY)) {
+            NativeObject nested = JSObjectUtil.getValue(object, JSON_ITEM_KEY, NativeObject.class);
+            if (nested != null) {
+                return itemStackFrom(nested);
+            }
+        }
+
+        if (!object.containsKey(JSON_ID_KEY)) {
+            return ItemStack.EMPTY;
+        }
+
+        int count = JSObjectUtil.getIntegerValue(object, JSON_COUNT_KEY, 1);
+        String id = JSObjectUtil.getValue(object, JSON_ID_KEY, String.class);
+        return itemStackFrom(id, count);
     }
 
     public static ItemStack itemStackFrom(CharSequence sequence) {

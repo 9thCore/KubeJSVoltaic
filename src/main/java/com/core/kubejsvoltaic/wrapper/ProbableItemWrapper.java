@@ -1,7 +1,9 @@
 package com.core.kubejsvoltaic.wrapper;
 
+import com.core.kubejsvoltaic.util.JSObjectUtil;
 import com.core.kubejsvoltaic.util.item.ItemUtil;
 import dev.latvian.mods.kubejs.typings.Info;
+import dev.latvian.mods.rhino.NativeObject;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.minecraft.world.item.ItemStack;
 import voltaic.common.recipe.recipeutils.ProbableItem;
@@ -13,6 +15,8 @@ public interface ProbableItemWrapper {
     @HideFromJS
     static ProbableItem EMPTY = new ProbableItem(ItemStack.EMPTY, 0.0d);
     @HideFromJS
+    static String JSON_CHANCE_KEY = "chance";
+    @HideFromJS
     static String CHANCE_MATCH_COMPONENT = "(\\d*\\.?\\d*)%";
     @HideFromJS
     static Pattern CHANCE_ITEM = ItemUtil.prefixItem(CHANCE_MATCH_COMPONENT);
@@ -22,13 +26,13 @@ public interface ProbableItemWrapper {
     static Pattern COUNT_CHANCE_ITEM = ItemUtil.prefixItem(ItemUtil.COUNT_MATCH_COMPONENT, CHANCE_MATCH_COMPONENT);
 
     @Info("Returns Voltaic's ProbableItem of the input, with a chance of 100%")
-    static ProbableItem of(ItemStack stack) {
-        return of(stack, 1d);
+    static ProbableItem of(ProbableItem probableItem) {
+        return of(probableItem, probableItem.getChance());
     }
 
     @Info("Returns Voltaic's ProbableItem of the input, with the given chance in the range [0, 1]")
-    static ProbableItem of(ItemStack stack, double chance) {
-        return new ProbableItem(stack, chance);
+    static ProbableItem of(ProbableItem probableItem, double chance) {
+        return new ProbableItem(probableItem.getFullStack(), chance);
     }
 
     @HideFromJS
@@ -44,6 +48,13 @@ public interface ProbableItemWrapper {
             if (probableItem != null) {
                 return probableItem;
             }
+        } else if (from instanceof NativeObject object) {
+            ItemStack stack = ItemUtil.itemStackFrom(object);
+            if (stack != null) {
+                double chance = JSObjectUtil.getDoubleValue(object, JSON_CHANCE_KEY, 1.0d);
+                return new ProbableItem(stack, chance);
+            }
+            return EMPTY;
         }
 
         ItemStack stack = ItemUtil.itemStackFrom(from);
