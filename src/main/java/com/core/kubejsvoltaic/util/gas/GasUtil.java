@@ -1,8 +1,8 @@
 package com.core.kubejsvoltaic.util.gas;
 
+import com.core.kubejsvoltaic.util.JSObjectUtil;
 import com.core.kubejsvoltaic.util.RegexUtil;
 import com.google.gson.JsonObject;
-import dev.latvian.mods.kubejs.script.ConsoleJS;
 import dev.latvian.mods.rhino.NativeObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -21,6 +21,7 @@ public final class GasUtil {
     public static String JSON_TAG_KEY = "tag";
     public static String JSON_PRESSURE_KEY = "pressure";
     public static String JSON_TEMP_KEY = "temp";
+    public static String JSON_TEMPERATURE_KEY = "temperature";
     public static String GAS_MATCH_COMPONENT = "([a-z0-9/._:-]+)";
     public static String TAG_MATCH_COMPONENT = "#([a-z0-9/._:-]+)";
     public static String COUNT_MATCH_COMPONENT = "(\\d+)x";
@@ -82,6 +83,8 @@ public final class GasUtil {
             return stack;
         } else if (from instanceof Gas gas) {
             return new GasStack(gas, FluidType.BUCKET_VOLUME, Gas.ROOM_TEMPERATURE, Gas.PRESSURE_AT_SEA_LEVEL);
+        } else if (from instanceof NativeObject object) {
+            return gasStackFrom(object);
         } else if (from instanceof JsonObject json) {
             if (isEmpty(json)) {
                 return GasStack.EMPTY;
@@ -97,6 +100,18 @@ public final class GasUtil {
         }
 
         return GasStack.EMPTY;
+    }
+
+    public static GasStack gasStackFrom(NativeObject object) {
+        if (!object.containsKey(JSON_GAS_KEY)) {
+            return GasStack.EMPTY;
+        }
+
+        int amount = JSObjectUtil.getIntegerValue(object, JSON_AMOUNT_KEY, FluidType.BUCKET_VOLUME);
+        int pressure = JSObjectUtil.getIntegerValue(object, JSON_PRESSURE_KEY, Gas.PRESSURE_AT_SEA_LEVEL);
+        int temperature = JSObjectUtil.getIntegerValue(object, Gas.ROOM_TEMPERATURE, Integer.class, JSON_TEMP_KEY, JSON_TEMPERATURE_KEY);
+        String id = JSObjectUtil.getValue(object, JSON_GAS_KEY, String.class);
+        return gasStackFrom(id, amount, temperature, pressure);
     }
 
     public static GasStack gasStackFrom(CharSequence sequence) {

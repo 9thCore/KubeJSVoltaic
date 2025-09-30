@@ -1,12 +1,12 @@
 package com.core.kubejsvoltaic.wrapper;
 
+import com.core.kubejsvoltaic.util.JSObjectUtil;
 import com.core.kubejsvoltaic.util.gas.GasUtil;
 import com.google.gson.JsonObject;
-import dev.latvian.mods.kubejs.script.ConsoleJS;
 import dev.latvian.mods.kubejs.typings.Info;
+import dev.latvian.mods.rhino.NativeObject;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.neoforged.neoforge.fluids.FluidType;
-import org.jline.utils.Log;
 import voltaic.api.gas.GasStack;
 import voltaic.common.recipe.recipeutils.ProbableGas;
 
@@ -28,13 +28,13 @@ public interface ProbableGasWrapper {
     static Pattern COUNT_CHANCE_GAS = GasUtil.prefixGas(GasUtil.COUNT_MATCH_COMPONENT, CHANCE_MATCH_COMPONENT);
 
     @Info("Returns Voltaic's ProbableGas of the input, with a chance of 100%")
-    static ProbableGas of(GasStack stack) {
-        return of(stack, 1d);
+    static ProbableGas of(ProbableGas probableGas) {
+        return of(probableGas, probableGas.getChance());
     }
 
     @Info("Returns Voltaic's ProbableGas of the input, with the given chance in the range [0, 1]")
-    static ProbableGas of(GasStack stack, double chance) {
-        return new ProbableGas(stack, chance);
+    static ProbableGas of(ProbableGas probableGas, double chance) {
+        return new ProbableGas(probableGas.getFullStack(), chance);
     }
 
     @HideFromJS
@@ -45,6 +45,13 @@ public interface ProbableGasWrapper {
 
         if (from instanceof ProbableGas probableGas) {
             return probableGas;
+        } else if (from instanceof NativeObject object) {
+            GasStack stack = GasUtil.gasStackFrom(object);
+            if (stack != null) {
+                double chance = JSObjectUtil.getDoubleValue(object, JSON_CHANCE_KEY, 1.0d);
+                return new ProbableGas(stack, chance);
+            }
+            return EMPTY;
         } else if (from instanceof JsonObject json) {
             if (GasUtil.isEmpty(json)) {
                 return EMPTY;
