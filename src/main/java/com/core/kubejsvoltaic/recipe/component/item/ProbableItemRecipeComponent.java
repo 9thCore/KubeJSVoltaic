@@ -1,7 +1,6 @@
 package com.core.kubejsvoltaic.recipe.component.item;
 
 import com.core.kubejsvoltaic.KubeJSVoltaic;
-import com.core.kubejsvoltaic.wrapper.ProbableItemWrapper;
 import com.mojang.serialization.Codec;
 import dev.latvian.mods.kubejs.recipe.KubeRecipe;
 import dev.latvian.mods.kubejs.recipe.component.RecipeComponent;
@@ -28,32 +27,8 @@ public record ProbableItemRecipeComponent(ResourceLocation Id) implements Recipe
     }
 
     @Override
-    public ProbableItem wrap(Context cx, KubeRecipe recipe, Object from) {
-        ProbableItem item = ProbableItemWrapper.from(from);
-        if (item != null) {
-            return item;
-        }
-
-        return RecipeComponent.super.wrap(cx, recipe, from);
-    }
-
-    @Override
     public boolean matches(Context cx, KubeRecipe recipe, ProbableItem value, ReplacementMatchInfo match) {
         return !isEmpty(value) && match.match() instanceof ItemMatch m && m.matches(cx, value.getFullStack(), match.exact());
-    }
-
-    @Override
-    public ProbableItem replace(Context cx, KubeRecipe recipe, ProbableItem original, ReplacementMatchInfo match, Object with) {
-        if (!matches(cx, recipe, original, match)) {
-            return original;
-        }
-
-        ProbableItem replacement = ProbableItemWrapper.from(with);
-        if (replacement == null) {
-            return original;
-        }
-
-        return replacement;
     }
 
     @Override

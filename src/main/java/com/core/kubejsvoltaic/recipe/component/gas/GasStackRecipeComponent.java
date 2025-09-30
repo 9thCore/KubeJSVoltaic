@@ -2,7 +2,6 @@ package com.core.kubejsvoltaic.recipe.component.gas;
 
 import com.core.kubejsvoltaic.KubeJSVoltaic;
 import com.core.kubejsvoltaic.recipe.match.GasMatch;
-import com.core.kubejsvoltaic.util.gas.GasUtil;
 import com.mojang.serialization.Codec;
 import dev.latvian.mods.kubejs.recipe.KubeRecipe;
 import dev.latvian.mods.kubejs.recipe.component.RecipeComponent;
@@ -28,28 +27,8 @@ public record GasStackRecipeComponent(ResourceLocation Id) implements RecipeComp
     }
 
     @Override
-    public GasStack wrap(Context cx, KubeRecipe recipe, Object from) {
-        GasStack stack = GasUtil.gasStackFrom(from);
-        if (stack != null) {
-            return stack;
-        }
-
-        return RecipeComponent.super.wrap(cx, recipe, from);
-    }
-
-    @Override
     public boolean matches(Context cx, KubeRecipe recipe, GasStack value, ReplacementMatchInfo match) {
         return !isEmpty(value) && match.match() instanceof GasMatch m && m.matches(cx, value, match.exact());
-    }
-
-    @Override
-    public GasStack replace(Context cx, KubeRecipe recipe, GasStack original, ReplacementMatchInfo match, Object with) {
-        GasStack stack = GasUtil.gasStackFrom(with);
-        if (stack != null) {
-            return stack;
-        }
-
-        return original;
     }
 
     @Override
