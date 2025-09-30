@@ -1,1 +1,2 @@
 com.core.kubejsvoltaic.integration.KubeJSVoltaicPlugin voltaic
+com.core.kubejsvoltaic.integration.ProbeJSVoltaicPlugin probejs client
