@@ -1,0 +1,120 @@
+{
+  "keys": [
+    {
+      "name": "gasoutput",
+      "role": "output",
+      "type": "kubejsvoltaic:gas_stack",
+      "function_names": ["gasOutput"],
+      "allow_empty": true,
+      "optional": null,
+      "excluded": true
+    },
+    {
+      "name": "fluidoutput",
+      "role": "output",
+      "type": "fluid_stack",
+      "function_names": ["fluidOutput"],
+      "allow_empty": true,
+      "optional": null,
+      "excluded": true
+    },
+    {
+      "name": "itemoutput",
+      "role": "output",
+      "type": "item_stack",
+      "function_names": ["itemOutput"],
+      "allow_empty": true,
+      "optional": null,
+      "excluded": true
+    },
+    {
+      "name": "iteminputs",
+      "role": "input",
+      "type": "nested_sized_ingredient[?]",
+      "function_names": ["itemInputs"],
+      "allow_empty": true,
+      "optional": [],
+      "excluded": true
+    },
+    {
+      "name": "fluidinputs",
+      "role": "input",
+      "type": "flat_sized_fluid_ingredient[?]",
+      "function_names": ["fluidInputs"],
+      "allow_empty": true,
+      "optional": [],
+      "excluded": true
+    },
+    {
+      "name": "gasinputs",
+      "role": "input",
+      "type": "kubejsvoltaic:gas_ingredient[?]",
+      "function_names": ["gasInputs"],
+      "allow_empty": true,
+      "optional": [],
+      "excluded": true
+    },
+    {
+      "name": "itembi",
+      "role": "output",
+      "type": "kubejsvoltaic:probable_item[?]",
+      "function_names": ["itemByproducts"],
+      "allow_empty": true,
+      "optional": [],
+      "excluded": true
+    },
+    {
+      "name": "fluidbi",
+      "role": "output",
+      "type": "kubejsvoltaic:probable_fluid[?]",
+      "function_names": ["fluidByproducts"],
+      "allow_empty": true,
+      "optional": [],
+      "excluded": true
+    },
+    {
+      "name": "gasbi",
+      "role": "output",
+      "type": "kubejsvoltaic:probable_gas[?]",
+      "function_names": ["gasByproducts"],
+      "allow_empty": true,
+      "optional": [],
+      "excluded": true
+    },
+    {
+      "name": "experience",
+      "role": "other",
+      "type": "float<0.0,max>",
+      "function_names": ["experience"],
+      "optional": 0.0,
+      "excluded": true
+    },
+    {
+      "name": "usagepertick",
+      "role": "other",
+      "type": "float<0.0,max>",
+      "function_names": ["usagePerTick"],
+      "optional": 0.0,
+      "always_write": true,
+      "excluded": true
+    },
+    {
+      "name": "ticks",
+      "role": "other",
+      "type": "ticks",
+      "function_names": ["ticks"],
+      "optional": 20,
+      "always_write": true,
+      "excluded": true
+    },
+    {
+      "name": "group",
+      "role": "other",
+      "type": "string",
+      "function_names": ["group"],
+      "optional": "kubejs",
+      "always_write": true,
+      "excluded": true
+    }
+  ]
+}
