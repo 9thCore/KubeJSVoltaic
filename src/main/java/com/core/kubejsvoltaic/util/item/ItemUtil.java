@@ -44,6 +44,11 @@ public final class ItemUtil {
             if (nested != null) {
                 return itemStackFrom(nested);
             }
+
+            String item = JSObjectUtil.getValue(object, JSON_ITEM_KEY, String.class);
+            if (item != null) {
+                return itemStackFrom(item);
+            }
         }
 
         if (!object.containsKey(JSON_ID_KEY)) {
