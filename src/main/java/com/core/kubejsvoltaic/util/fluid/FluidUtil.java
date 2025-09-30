@@ -1,4 +1,4 @@
-package com.core.kubejsvoltaic.util.item;
+package com.core.kubejsvoltaic.util.fluid;
 
 import com.core.kubejsvoltaic.util.RegexUtil;
 import dev.latvian.mods.kubejs.fluid.FluidLike;

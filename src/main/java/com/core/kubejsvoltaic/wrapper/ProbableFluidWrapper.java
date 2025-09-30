@@ -1,6 +1,6 @@
 package com.core.kubejsvoltaic.wrapper;
 
-import com.core.kubejsvoltaic.util.item.FluidUtil;
+import com.core.kubejsvoltaic.util.fluid.FluidUtil;
 import dev.latvian.mods.kubejs.typings.Info;
 import dev.latvian.mods.rhino.util.HideFromJS;
 import net.neoforged.neoforge.fluids.FluidStack;
