@@ -19,11 +19,12 @@
         {
           "chance": 1.0,
           "amount": 1000,
-          "gas": "electrodynamics:hydrogen",
+          "gas": "voltaic:empty",
           "temp": 293,
           "pressure": 1
         }
       ],
+      "allow_empty": true,
       "always_write": true,
       "excluded": true
     },
