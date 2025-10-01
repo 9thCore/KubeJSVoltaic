@@ -154,6 +154,7 @@ dependencies {
     implementation "curse.maven:voltaic-api-1237904:6791638"
     implementation "curse.maven:electrodynamics-316867:6792255"
     implementation "curse.maven:nuclear-science-318646:6785829"
+    implementation "curse.maven:blast-craft-405322:6619606"
     // TODO every other mod lol
 
     // QOL
