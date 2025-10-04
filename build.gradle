@@ -155,7 +155,9 @@ dependencies {
     implementation "curse.maven:electrodynamics-316867:6792255"
     implementation "curse.maven:nuclear-science-318646:6785829"
     implementation "curse.maven:blast-craft-405322:6619606"
-    // TODO every other mod lol
+    implementation "curse.maven:ballistix-443915:6791729"
+    implementation "curse.maven:modular-forcefields-322896:6619658"
+    implementation "curse.maven:assembly-lines-404360:6619541"
 
     // QOL
     // JEI
