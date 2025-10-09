@@ -1,5 +1,6 @@
 package com.core.kubejsvoltaic.integration;
 
+import com.core.kubejsvoltaic.gas.GasBuilder;
 import com.core.kubejsvoltaic.recipe.component.fluid.ProbableFluidRecipeComponent;
 import com.core.kubejsvoltaic.recipe.component.gas.GasIngredientRecipeComponent;
 import com.core.kubejsvoltaic.recipe.component.gas.GasStackRecipeComponent;
@@ -9,6 +10,7 @@ import com.core.kubejsvoltaic.util.gas.GasUtil;
 import com.core.kubejsvoltaic.wrapper.*;
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
 import dev.latvian.mods.kubejs.recipe.schema.RecipeComponentFactoryRegistry;
+import dev.latvian.mods.kubejs.registry.BuilderTypeRegistry;
 import dev.latvian.mods.kubejs.script.BindingRegistry;
 import dev.latvian.mods.kubejs.script.TypeWrapperRegistry;
 import voltaic.api.gas.GasStack;
@@ -16,8 +18,14 @@ import voltaic.common.recipe.recipeutils.GasIngredient;
 import voltaic.common.recipe.recipeutils.ProbableFluid;
 import voltaic.common.recipe.recipeutils.ProbableGas;
 import voltaic.common.recipe.recipeutils.ProbableItem;
+import voltaic.registers.VoltaicGases;
 
 public class KubeJSVoltaicPlugin implements KubeJSPlugin {
+    @Override
+    public void registerBuilderTypes(BuilderTypeRegistry registry) {
+        registry.addDefault(VoltaicGases.GAS_REGISTRY_KEY, GasBuilder.class, GasBuilder::new);
+    }
+
     @Override
     public void registerRecipeComponents(RecipeComponentFactoryRegistry registry) {
         registry.register(ProbableItemRecipeComponent.PROBABLE_ITEM);
